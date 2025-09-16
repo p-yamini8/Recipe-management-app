@@ -14,9 +14,10 @@ const res=await fetch('/user/login',{
 });
 const result=await res.json();
 if(res.ok)
-{
+{localStorage.setItem('token',result.token)
     alert('login success');
-    form.reset()
+   
+    window.location.href='../dashboard/dashboard.html'
 }
 }
 catch(err)
