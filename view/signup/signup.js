@@ -21,6 +21,7 @@ if(response.ok)
 {
     form.reset()
     alert('signup success');
+    window.location.href='../login/login.html'
 
 }
 else{

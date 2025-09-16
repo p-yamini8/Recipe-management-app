@@ -1,0 +1,73 @@
+/* login.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #74ebd5 0%, #9face6 100%);
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#login_div {
+    background: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    width: 350px;
+    text-align: center;
+}
+
+#header {
+    margin-bottom: 20px;
+    font-size: 26px;
+    color: #333;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#login_form input {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+#login_form input:focus {
+    border-color: #6c63ff;
+    outline: none;
+}
+#login-btn {
+    background: #6c63ff;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s ease;
+}
+
+#login-btn:hover {
+    background: #574bdb;
+}
+
+a {
+    display: block;
+    margin-top: 10px;
+    color: #6c63ff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
