@@ -1,6 +1,8 @@
 
 const User=require('../models/user')
 const bcrypt=require('bcrypt');
+const jwt=require('jsonwebtoken')
+require('dotenv').config()
 exports.signup=async(req,res)=>{
     try{
        
@@ -27,4 +29,30 @@ catch(err)
     return  res.status(500).json({message:'error signup'});
 
 }
+}
+exports.login=async(req,res)=>{
+    const {email,password}=req.body;
+    console.log(email,password)
+    if(!email||!password)
+    {
+        return res.status(400).json({message:"missing fields"});
+
+    }
+    try{
+        const user=await User.findOne({where:{email}});
+        if(!user||!(await bcrypt.compare(password,user.password)))
+        {
+            return res.status(401).json({message:'invalid credentials'});
+        }
+        const token=await jwt.sign({id:user.id,
+            name:user.name,
+            email:user.email,
+            password:user.password
+        },process.env.JWT_SECRET);
+        res.json({message:'login success',token,name:user.name});
+    }
+    catch(err)
+    {
+        return res.status(500).json({message:err.message})
+    }
 }
