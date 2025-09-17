@@ -1,5 +1,6 @@
 const {DataTypes}=require('sequelize');
 const sequelize=require('../util/database')
+
 const Sequelize=sequelize.define('User',{
     id:{type:DataTypes.INTEGER,
         autoIncrement:true,
@@ -17,3 +18,4 @@ const Sequelize=sequelize.define('User',{
         allowNull:false,},
 })
 module.exports=Sequelize;
+

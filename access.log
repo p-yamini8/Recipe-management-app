@@ -1,4 +1,0 @@
-::1 - - [16/Sep/2025:05:41:50 +0000] "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 187 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36"
-::1 - - [16/Sep/2025:05:41:53 +0000] "POST /user/login HTTP/1.1" 200 306 "http://localhost:3000/login/login.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36"
-::1 - - [16/Sep/2025:05:41:54 +0000] "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 187 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36"
-::1 - - [16/Sep/2025:05:41:54 +0000] "GET /recipes HTTP/1.1" 404 146 "http://localhost:3000/dashboard/dashboard.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36"

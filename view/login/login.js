@@ -15,6 +15,7 @@ const res=await fetch('/user/login',{
 const result=await res.json();
 if(res.ok)
 {localStorage.setItem('token',result.token)
+    localStorage.setItem('username',result.name)
     alert('login success');
    
     window.location.href='../dashboard/dashboard.html'

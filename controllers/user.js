@@ -49,6 +49,7 @@ exports.login=async(req,res)=>{
             email:user.email,
             password:user.password
         },process.env.JWT_SECRET);
+        
         res.json({message:'login success',token,name:user.name});
     }
     catch(err)

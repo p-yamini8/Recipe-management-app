@@ -56,8 +56,9 @@ const User = require('./models/user')
 
 
 const userRoutes = require('./routes/user')
-
-
+const recipeRoutes=require('./routes/recipes');
+const favoriteRoutes=require('./routes/favorite');
+// const reviewRoutes=require('./routes/review')
 //middlewares
 app.use(morgan('combined', { stream: accessLogStream }))
 app.use(cors())
@@ -67,7 +68,9 @@ app.use(compression())
 
 //routes
 app.use('/user', userRoutes)
-
+app.use('/recipes',recipeRoutes);
+app.use('/favorite',favoriteRoutes);
+// app.use('/review',reviewRoutes);
 
 
 
@@ -80,3 +83,4 @@ sequelize.sync()
   .catch((err) => {
     console.log(err)
   })
+  module.exports=app;
