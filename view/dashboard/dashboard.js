@@ -88,11 +88,19 @@
 
     const token = localStorage.getItem("token");
     const username = localStorage.getItem("username");
-
+const isAdmin=localStorage.getItem('isAdmin');
     if (!token) {
       window.location.href = "../login/login.html";
     } else {
       document.getElementById("username").innerText = username;
+    }
+    if(isAdmin=='true')
+    {
+      document.getElementById('adminBtn').style.display='inline-block';
+      document.getElementById('adminBtn').addEventListener('click',()=>{
+window.Location.href='../admin/admin.html'
+      }
+  )
     }
 
     document.getElementById("logoutBtn").addEventListener("click", () => {
@@ -178,13 +186,13 @@
 
     // ⭐ Add Favorite
     async function addFavorite(recipeId) {
-    alert(token)
+   
      const res= await fetch("/favorite", {
         method: "POST",
         headers: { "Content-Type": "application/json", "Authorization":`Bearer ${token}`},
         body: JSON.stringify({ recipeId })
       });
-      alert(recipeId)
+     
       const result=await res.json();
       if(res.ok)
       {
@@ -199,7 +207,7 @@
 
     // 📌 Load Favorites
     async function loadFavorites() {
-      alert('loadfav'+token)
+ 
       const res = await fetch("/favorite", {
         headers: {"Authorization":`Bearer ${token}`}
       });
@@ -271,14 +279,14 @@ alert("Review added!");
 
     // 📌 Load Reviews for a Recipe
     async function loadReviews(recipeId) {
-      alert('load')
+    
       const res = await fetch(`/review/${recipeId}`,{
         method: "GET",
         headers: { "Content-Type": "application/json","Authorization":`Bearer ${token}`}});
       const reviews = await res.json();
       if(res.ok)
       {
- alert('reviews:',reviews)
+
       const container = document.getElementById(`reviews-${recipeId}`);
       container.innerHTML = "<h5>Reviews:</h5>";
 
@@ -289,7 +297,7 @@ alert("Review added!");
       });
       }
       else{
-        alert(reviews.result)
+        
         console.log(reviews.message)
       }
      

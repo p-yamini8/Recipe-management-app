@@ -1,0 +1,57 @@
+/* General styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: linear-gradient(to right, #ffecd2, #fcb69f);
+  color: #333;
+}
+
+/* Navbar */
+#navbar {
+  background: #ff7e5f;
+  color: white;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#navbar button {
+  background: white;
+  border: none;
+  padding: 8px 12px;
+  margin-left: 5px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Card */
+.card {
+  background: white;
+  padding: 20px;
+  margin: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 15px;
+}
+
+/* Tables (for Admin) */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th, table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+table th {
+  background: #fcb69f;
+}

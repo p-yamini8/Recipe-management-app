@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <div id="navbar">
+    <h2>⚙ Admin Dashboard</h2>
+    <div>
+      <button onclick="window.location.href='../dashboard/dashboard.html'">🏠 Dashboard</button>
+      <button id="logoutBtn">🚪 Logout</button>
+    </div>
+  </div>
+
+  <div id="admin-container">
+    <!-- User Management -->
+    <section class="card">
+      <h3>👥 User Management</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="user-table"></tbody>
+      </table>
+    </section>
+
+    <!-- Recipe Management -->
+    <section class="card">
+      <h3>📌 Recipe Management</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Recipe</th>
+            <th>Author</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="recipe-table"></tbody>
+      </table>
+    </section>
+  </div>
+</body>
+</html>

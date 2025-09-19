@@ -6,7 +6,7 @@ try{
    
 const email=document.getElementById('login-email').value;
 const password=document.getElementById('login-password').value;
-alert(email,password)
+
 const res=await fetch('/user/login',{
     method:'POST',
     headers:{'Content-Type':'application/json'},
