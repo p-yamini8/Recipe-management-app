@@ -6,7 +6,7 @@ const Recipe = require('./recipe');
 
 const Review = sequelize.define('Review', {
   id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-  rating: { type: DataTypes.INTEGER, allowNull: false }, // 1–5
+  rating: { type: DataTypes.INTEGER, allowNull: false,defaultValue:5}, // 1–5
   comment: { type: DataTypes.TEXT }
 });
 

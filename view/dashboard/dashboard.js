@@ -125,9 +125,18 @@
           <button onclick="editRecipe(${r.id})">✏ Edit</button>
           <button onclick="deleteRecipe(${r.id})">🗑 Delete</button>
           <div>
-            <textarea id="review-${r.id}" placeholder="Write a review"></textarea>
-            <button onclick="addReview(${r.id})">💬 Add Review</button>
-          </div>
+  <label>Rating:</label>
+  <select id="rating-${r.id}">
+    <option value="1">⭐</option>
+    <option value="2">⭐⭐</option>
+    <option value="3">⭐⭐⭐</option>
+    <option value="4">⭐⭐⭐⭐</option>
+    <option value="5" selected>⭐⭐⭐⭐⭐</option>
+  </select>
+  <br>
+  <textarea id="review-${r.id}" placeholder="Write a review"></textarea>
+  <button onclick="addReview(${r.id})">💬 Add Review</button>
+</div>
           <div id="reviews-${r.id}">
             <h5>Reviews:</h5>
           </div>
@@ -240,33 +249,53 @@ if(res.ok)
     // 💬 Add Review
     async function addReview(recipeId) {
       const text = document.getElementById(`review-${recipeId}`).value;
+      const rating=document.getElementById(`rating-${recipeId}`).value;
       if (!text) return alert("Enter review text!");
 
-      await fetch('/review', {
+      const res=await fetch('/review', {
         method: "POST",
         headers: { "Content-Type": "application/json","Authorization":`Bearer ${token}`},
-        body: JSON.stringify({ recipeId, comment: text })
+        body: JSON.stringify({ recipeId, comment: text,rating })
       });
-      alert("Review added!");
+      const result=await res.json();
+      if(res.ok)
+      {
+alert("Review added!");
+      document.getElementById(`review-${recipeId}`).value='';
       loadReviews(recipeId);
+      }
+      else{
+        console.log(result.message)
+      }
     }
 
     // 📌 Load Reviews for a Recipe
     async function loadReviews(recipeId) {
-      const res = await fetch(`/review/${recipeId}`);
+      alert('load')
+      const res = await fetch(`/review/${recipeId}`,{
+        method: "GET",
+        headers: { "Content-Type": "application/json","Authorization":`Bearer ${token}`}});
       const reviews = await res.json();
-      console.log('reviews',reviews)
+      if(res.ok)
+      {
+ alert('reviews:',reviews)
       const container = document.getElementById(`reviews-${recipeId}`);
       container.innerHTML = "<h5>Reviews:</h5>";
 
       reviews.forEach(r => {
         const p = document.createElement("p");
-        p.innerText = `${r.User?.name || "Anon"}: ${r.comment}`;
+        p.innerText = `${r.User?.name || "Anon"}(${r.rating}⭐): ${r.comment}`;
         container.appendChild(p);
       });
+      }
+      else{
+        alert(reviews.result)
+        console.log(reviews.message)
+      }
+     
     }
 
     // ✅ Init
     loadRecipes();
     loadFavorites();
- 
+  

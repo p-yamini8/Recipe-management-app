@@ -1,43 +1,4 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Recipe Dashboard</title>
-  <link rel="stylesheet" href="dashboard.css">
-</head>
-<body>
-  <div id="navbar">
-    <h2>Recipe Management App</h2>
-    <button id="logoutBtn">Logout</button>
-  </div>
-
-  <div id="content">
-    <h3>Welcome, <span id="username"></span> 👋</h3>
-
-    <h4>Add a Recipe</h4>
-    <form id="recipeForm">
-      <input type="text" id="title" placeholder="Recipe Title" required><br>
-      <textarea id="ingredients" placeholder="Ingredients" required></textarea><br>
-      <textarea id="instructions" placeholder="Instructions" required></textarea><br>
-      <input type="number" id="cookingTime" placeholder="Cooking Time (min)"><br>
-      <input type="number" id="servings" placeholder="Servings"><br>
-      <input type="text" id="category" placeholder="Category (e.g. Dessert)"><br>
-      <input type="text" id="difficulty" placeholder="Difficulty (Easy/Medium/Hard)"><br>
-      <input type="text" id="imageUrl" placeholder="Image URL"><br>
-      <button type="submit">Add Recipe</button>
-    </form>
-
-    <h4>All Recipes</h4>
-    <div id="recipes"></div>
-  </div>
-
-  <script src="../dashboard/dashboard.js">
-    
-  </script>
-</body>
-</html>
- -->
+<!-- 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,7 +16,6 @@
   <div id="content">
     <h3>Welcome, <span id="username"></span> 👋</h3>
 
-    <!-- ✅ Add Recipe Form -->
     <h4>Add a Recipe</h4>
     <form id="recipeForm">
       <input type="text" id="title" placeholder="Recipe Title" required><br>
@@ -69,11 +29,11 @@
       <button type="submit">Add Recipe</button>
     </form>
 
-    <!-- ✅ All Recipes -->
+  
     <h4>All Recipes</h4>
     <div id="recipes"></div>
 
-    <!-- ✅ My Favorites -->
+    
     <h4>My Favorites</h4>
     <div id="favorites"></div>
   </div>
@@ -81,4 +41,61 @@
 
 </body>
  <script src="../dashboard/dashboard.js"></script>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recipe Dashboard</title>
+  <link rel="stylesheet" href="./dashboard.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <div id="navbar">
+    <h2>🍽 Recipe Management App</h2>
+    <div>
+      <span id="username"></span>
+      <button id="logoutBtn">Logout</button>
+    </div>
+  </div>
+
+  <div id="content">
+    <!-- Welcome -->
+    <h3>Welcome, <span id="username"></span> 👋</h3>
+
+    <!-- Add Recipe Form -->
+    <section class="card">
+      <h4>Add a Recipe</h4>
+      <form id="recipeForm">
+        <input type="text" id="title" placeholder="Recipe Title" required>
+        <textarea id="ingredients" placeholder="Ingredients" required></textarea>
+        <textarea id="instructions" placeholder="Instructions" required></textarea>
+        <input type="number" id="cookingTime" placeholder="Cooking Time (min)">
+        <input type="number" id="servings" placeholder="Servings">
+        <input type="text" id="category" placeholder="Category (e.g. Dessert)">
+        <input type="text" id="difficulty" placeholder="Difficulty (Easy/Medium/Hard)">
+        <input type="text" id="imageUrl" placeholder="Image URL">
+        <button type="submit">➕ Add Recipe</button>
+      </form>
+    </section>
+
+    <!-- All Recipes -->
+    <section class="card">
+      <h4>📌 All Recipes</h4>
+      <div id="recipes" class="grid"></div>
+    </section>
+
+    <!-- My Favorites -->
+    <section class="card">
+      <h4>⭐ My Favorites</h4>
+      <div id="favorites" class="grid"></div>
+    </section>
+  </div>
+
+  <script src="./dashboard.js"></script>
+</body>
 </html>
