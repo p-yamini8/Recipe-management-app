@@ -10,10 +10,10 @@ const Review = sequelize.define('Review', {
   comment: { type: DataTypes.TEXT }
 });
 
-User.hasMany(Review, { foreignKey: 'userId' });
-Review.belongsTo(User, { foreignKey: 'userId' });
+// User.hasMany(Review, { foreignKey: 'userId' });
+// Review.belongsTo(User, { foreignKey: 'userId' });
 
-Recipe.hasMany(Review, { foreignKey: 'recipeId' });
-Review.belongsTo(Recipe, { foreignKey: 'recipeId' });
+// Recipe.hasMany(Review, { foreignKey: 'recipeId' });
+// Review.belongsTo(Recipe, { foreignKey: 'recipeId' });
 
 module.exports = Review;

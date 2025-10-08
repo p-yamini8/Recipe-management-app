@@ -11,7 +11,7 @@ exports.createRecipe = async (req, res) => {
     if (!title || !ingredients || !instructions) {
       return res.status(400).json({ message: "Missing required fields" });
     }
-
+console.log('req..................user',req.user)
     const recipe = await Recipe.create({
       title,
       ingredients,
@@ -21,7 +21,7 @@ exports.createRecipe = async (req, res) => {
       category,
       difficulty,
       imageUrl,
-      userId: req.user.id
+      userId:req.user.id
     });
 
     res.status(201).json({ message: "Recipe created successfully", recipe });
@@ -47,11 +47,12 @@ exports.getRecipes = async (req, res) => {
       whereClause.difficulty = difficulty;
     }
 
-    const recipes = await Recipe.findAll({
-      where: whereClause,
-      include: [{ model: User, attributes: ["id", "name", "email"] }]
-    });
-
+   const recipes = await Recipe.findAll({
+  include: [
+    { model: User, attributes: ["id", "name"], as: "User" }
+  ],
+  order: [["createdAt", "DESC"]]
+});
     res.json(recipes);
   } catch (err) {
     console.error("Get recipes error:", err);
@@ -93,7 +94,7 @@ exports.updateRecipe = async (req, res) => {
     // }
 
     await recipe.update({title:title||recipe.title});
-    await recipe.save();
+    // await recipe.save();
     res.json({ message: "Recipe updated successfully", recipe });
   } catch (err) {
     console.error("Update recipe error:", err);

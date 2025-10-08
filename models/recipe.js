@@ -1,7 +1,7 @@
 // models/Recipe.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../util/database');
-const User = require('./user');
+
 
 const Recipe = sequelize.define('Recipe', {
   id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
@@ -12,10 +12,12 @@ const Recipe = sequelize.define('Recipe', {
   servings: { type: DataTypes.INTEGER },
   category: { type: DataTypes.STRING },
   difficulty: { type: DataTypes.STRING },
-  imageUrl: { type: DataTypes.STRING }
+  imageUrl: { type: DataTypes.STRING },
+  userId: { 
+  type: DataTypes.INTEGER, 
+  allowNull: false,
+  // references: { model: 'Users', key: 'id' } // foreign key reference
+}
 });
-
-User.hasMany(Recipe, { foreignKey: 'userId' });
-Recipe.belongsTo(User, { foreignKey: 'userId' });
 
 module.exports = Recipe;

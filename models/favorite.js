@@ -31,11 +31,11 @@ const Favorite = sequelize.define('Favorite', {
   RecipeId: { type: DataTypes.INTEGER, allowNull: false }
 });
 
-// Associations
-Favorite.belongsTo(User, { foreignKey: 'UserId' });
-Favorite.belongsTo(Recipe, { foreignKey: 'RecipeId' });
+// // Associations
+// Favorite.belongsTo(User, { foreignKey: 'UserId' });
+// Favorite.belongsTo(Recipe, { foreignKey: 'RecipeId' });
 
-User.hasMany(Favorite, { foreignKey: 'UserId' });
-Recipe.hasMany(Favorite, { foreignKey: 'RecipeId' });
+// User.hasMany(Favorite, { foreignKey: 'UserId' });
+// Recipe.hasMany(Favorite, { foreignKey: 'RecipeId' });
 
 module.exports = Favorite;

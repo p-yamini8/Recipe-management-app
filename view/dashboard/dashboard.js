@@ -92,13 +92,14 @@ const isAdmin=localStorage.getItem('isAdmin');
     if (!token) {
       window.location.href = "../login/login.html";
     } else {
-      document.getElementById("username").innerText = username;
+      document.getElementById("nav-username").innerText = username;
+       document.getElementById("welcome-username").innerText = username;
     }
     if(isAdmin=='true')
     {
       document.getElementById('adminBtn').style.display='inline-block';
       document.getElementById('adminBtn').addEventListener('click',()=>{
-window.Location.href='../admin/admin.html'
+window.location.href='../admin/admin.html'
       }
   )
     }
@@ -111,13 +112,17 @@ window.Location.href='../admin/admin.html'
 
     // ✅ Load Recipes
     async function loadRecipes() {
-      const res = await fetch("/recipes");
+      const res = await fetch("/recipes", {
+       
+        headers: { "Content-Type": "application/json", "Authorization":`Bearer ${token}`},
+      
+      });
 
       const recipes = await res.json();
 
       const container = document.getElementById("recipes");
       container.innerHTML = "";
-
+console.log('recipes',JSON.stringify(recipes,null,2))
       recipes.forEach(r => {
         const div = document.createElement("div");
         div.className = "recipe";

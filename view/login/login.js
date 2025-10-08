@@ -16,6 +16,8 @@ const result=await res.json();
 if(res.ok)
 {localStorage.setItem('token',result.token)
     localStorage.setItem('username',result.name)
+    localStorage.setItem('userId',result.id)
+    console.log('userId',result.id)
     alert('login success');
    
     window.location.href='../dashboard/dashboard.html'

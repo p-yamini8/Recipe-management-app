@@ -1,7 +1,7 @@
 const {DataTypes}=require('sequelize');
 const sequelize=require('../util/database')
 
-const Sequelize=sequelize.define('User',{
+const User=sequelize.define('User',{
     id:{type:DataTypes.INTEGER,
         autoIncrement:true,
         primaryKey:true
@@ -17,5 +17,7 @@ const Sequelize=sequelize.define('User',{
     password:{type:DataTypes.STRING,
         allowNull:false,},
 })
-module.exports=Sequelize;
 
+
+
+module.exports=User;

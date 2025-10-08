@@ -1,0 +1,19 @@
+const express = require("express");
+const router = express.Router();
+const adminController = require("../controllers/admin");
+const auth = require("../middleware/auth");
+
+// Middleware to check admin
+function checkAdmin(req, res, next) {
+  if (!req.user.isAdmin) {
+    return res.status(403).json({ message: "Admins only" });
+  }
+  next();
+}
+
+router.get("/users", auth, checkAdmin, adminController.getUsers);
+router.put("/ban/:id", auth, checkAdmin, adminController.banUser);
+router.put("/approve/:id", auth, checkAdmin, adminController.approveUser);
+router.delete("/recipe/:id", auth, checkAdmin, adminController.deleteRecipe);
+
+module.exports = router;

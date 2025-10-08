@@ -50,10 +50,40 @@ exports.login=async(req,res)=>{
             password:user.password
         },process.env.JWT_SECRET);
         
-        res.json({message:'login success',token,name:user.name});
+        res.json({message:'login success',token,name:user.name,id:user.id});
     }
     catch(err)
     {
         return res.status(500).json({message:err.message})
     }
 }
+// controllers/user.js
+
+const Follow = require("../models/follow");
+
+exports.getUsers = async (req, res) => {
+  try {
+    const currentUserId = req.user.id;
+
+    const users = await User.findAll({
+      attributes: ["id", "name", "email"]
+    });
+
+    const following = await Follow.findAll({
+      where: { followerId: currentUserId }
+    });
+    const followingIds = following.map(f => f.followingId);
+
+    const result = users.map(u => ({
+      id: u.id,
+      name: u.name,
+      email: u.email,
+      isFollowing: followingIds.includes(u.id)
+    }));
+
+    res.json(result);
+  } catch (err) {
+    console.error("Get users error:", err);
+    res.status(500).json({ message: "Failed to fetch users" });
+  }
+};
