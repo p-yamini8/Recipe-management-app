@@ -48,6 +48,7 @@ exports.getRecipes = async (req, res) => {
     }
 
    const recipes = await Recipe.findAll({
+    where:whereClause,
   include: [
     { model: User, attributes: ["id", "name"], as: "User" }
   ],
