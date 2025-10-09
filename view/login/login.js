@@ -17,6 +17,7 @@ if(res.ok)
 {localStorage.setItem('token',result.token)
     localStorage.setItem('username',result.name)
     localStorage.setItem('userId',result.id)
+    localStorage.setItem('isAdmin',String(result.isAdmin))
     console.log('userId',result.id)
     alert('login success');
    

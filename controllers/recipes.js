@@ -11,7 +11,7 @@ exports.createRecipe = async (req, res) => {
     if (!title || !ingredients || !instructions) {
       return res.status(400).json({ message: "Missing required fields" });
     }
-console.log('req..................user',req.user)
+
     const recipe = await Recipe.create({
       title,
       ingredients,
@@ -90,9 +90,7 @@ exports.updateRecipe = async (req, res) => {
       return res.status(404).json({ message: "Recipe not found" });
     }
 
-    // if (recipe.userId !== req.user.id) {
-    //   return res.status(403).json({ message: "Not authorized to edit this recipe" });
-    // }
+   
 
     await recipe.update({title:title||recipe.title});
     // await recipe.save();
@@ -111,10 +109,6 @@ exports.deleteRecipe = async (req, res) => {
     if (!recipe) {
       return res.status(404).json({ message: "Recipe not found" });
     }
-
-    // if (recipe.userId !== req.user.id) {
-    //   return res.status(403).json({ message: "Not authorized to delete this recipe" });
-    // }
 
     await recipe.destroy();
     res.json({ message: "Recipe deleted successfully" });

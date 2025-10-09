@@ -16,6 +16,14 @@ const User=sequelize.define('User',{
     unique:true},
     password:{type:DataTypes.STRING,
         allowNull:false,},
+        isAdmin:{
+            type:DataTypes.BOOLEAN,
+            defaultValue:false,
+        },
+        banned:{
+            type:DataTypes.BOOLEAN,
+            defaultValue:false,
+        },
 })
 
 

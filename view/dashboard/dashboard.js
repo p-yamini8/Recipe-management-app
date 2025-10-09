@@ -1,22 +1,18 @@
 
-
-
-
-
-
-
     const token = localStorage.getItem("token");
     const username = localStorage.getItem("username");
 const isAdmin=localStorage.getItem('isAdmin');
+console.log('isAdmin',isAdmin)
+alert(isAdmin)
     if (!token) {
       window.location.href = "../login/login.html";
     } else {
       document.getElementById("nav-username").innerText = username;
        document.getElementById("welcome-username").innerText = username;
     }
-    if(isAdmin=='true')
-    {
-      document.getElementById('adminBtn').style.display='inline-block';
+    if(isAdmin==='true')
+    {alert('admin')
+      document.getElementById('adminBtn').style.display='block';
       document.getElementById('adminBtn').addEventListener('click',()=>{
 window.location.href='../admin/admin.html'
       }
@@ -29,59 +25,6 @@ window.location.href='../admin/admin.html'
       window.location.href = "../login/login.html";
     });
 
-    // ✅ Load Recipes
-//     async function loadRecipes() {
-      
-
-//   const res = await fetch(`/recipes`, {
-       
-//         headers: { "Content-Type": "application/json", "Authorization":`Bearer ${token}`},
-      
-//       });
-
-//       const recipes = await res.json();
-
-//       const container = document.getElementById("recipes");
-//       container.innerHTML = "";
-// console.log('recipes',JSON.stringify(recipes,null,2))
-//       recipes.forEach(r => {
-//         const div = document.createElement("div");
-//         div.className = "recipe";
-//         div.innerHTML = `
-//           <h3>${r.title}</h3>
-//           <p><b>By:</b> ${r.User?.name || "Unknown"}</p>
-//           <p><b>Ingredients:</b> ${r.ingredients}</p>
-//           <p><b>Instructions:</b> ${r.instructions}</p>
-//           <p><b>Time:</b> ${r.cookingTime || "-"} mins | <b>Servings:</b> ${r.servings || "-"}</p>
-//           <p><b>Category:</b> ${r.category || "-"} | <b>Difficulty:</b> ${r.difficulty || "-"}</p>
-//           <img src="${r.imageUrl || "https://via.placeholder.com/150"}" width="200"/><br>
-//           <button onclick="addFavorite(${r.id})">⭐ Favorite</button>
-//           <button onclick="editRecipe(${r.id})">✏ Edit</button>
-//           <button onclick="deleteRecipe(${r.id})">🗑 Delete</button>
-//           <div>
-//   <label>Rating:</label>
-//   <select id="rating-${r.id}">
-//     <option value="1">⭐</option>
-//     <option value="2">⭐⭐</option>
-//     <option value="3">⭐⭐⭐</option>
-//     <option value="4">⭐⭐⭐⭐</option>
-//     <option value="5" selected>⭐⭐⭐⭐⭐</option>
-//   </select>
-//   <br>
-//   <textarea id="review-${r.id}" placeholder="Write a review"></textarea>
-//   <button onclick="addReview(${r.id})">💬 Add Review</button>
-// </div>
-//           <div id="reviews-${r.id}">
-//             <h5>Reviews:</h5>
-//           </div>
-//         `;
-//         container.appendChild(div);
-//         loadReviews(r.id);
-//       });
-//     }
-
-
-// ✅ Load Recipes (with optional filters)
 async function loadRecipes(filters = {}) {
   // Clean up empty filters
   Object.keys(filters).forEach(key => {
