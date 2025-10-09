@@ -23,6 +23,10 @@ exports.createRecipe = async (req, res) => {
       imageUrl,
       userId:req.user.id
     });
+// When creating a recipe or review
+if (req.user.banned) {
+  return res.status(403).json({ message: "Banned users cannot post content." });
+}
 
     res.status(201).json({ message: "Recipe created successfully", recipe });
   } catch (err) {
@@ -50,7 +54,7 @@ exports.getRecipes = async (req, res) => {
    const recipes = await Recipe.findAll({
     where:whereClause,
   include: [
-    { model: User, attributes: ["id", "name"], as: "User" }
+    { model: User, attributes: ["id", "name"], as: "User", where: { banned: false }  }
   ],
   order: [["createdAt", "DESC"]]
 });

@@ -12,6 +12,7 @@ function checkAdmin(req, res, next) {
 }
 
 router.get("/users", auth.authenticate, checkAdmin, adminController.getUsers);
+router.get('/recipes',auth.authenticate,checkAdmin,adminController.getRecipes);
 router.put("/ban/:id", auth.authenticate, checkAdmin, adminController.banUser);
 router.put("/approve/:id", auth.authenticate, checkAdmin, adminController.approveUser);
 router.delete("/recipe/:id", auth.authenticate, checkAdmin, adminController.deleteRecipe);

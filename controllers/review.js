@@ -8,6 +8,11 @@ exports.addReview = async (req, res) => {
     {
       return res.status(400).json({message:"RecipeId and comment required"})
     }
+    
+if (req.user.banned) {
+  return res.status(403).json({ message: "Banned users cannot post content." });
+}
+
     const review = await Review.create({ comment, userId: req.user.id,recipeId,rating:rating ?parseInt(rating):5});
      // Fetch with user details so frontend can display name directly
     const reviewWithUser = await Review.findOne({

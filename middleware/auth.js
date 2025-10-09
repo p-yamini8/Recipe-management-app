@@ -21,7 +21,7 @@ if(!user)
 {
     return res.status(404).json({message:'user not found'});
 }
-req.user={id:decoded.id,name:decoded.name};
+req.user={id:decoded.id,name:decoded.name,isAdmin:decoded.isAdmin};
 next()
     }
 catch(err)

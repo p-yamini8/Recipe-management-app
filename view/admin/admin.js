@@ -13,14 +13,17 @@ async function loadUsers() {
   const tbody = document.getElementById("user-table");
   tbody.innerHTML = "";
   users.forEach(u => {
+    const status = u.banned ? "Banned" : "Active";
     tbody.innerHTML += `
       <tr>
-        <td>${u.username}</td>
+        <td>${u.name}</td>
         <td>${u.email}</td>
-        <td>${u.status}</td>
+        <td>${status}</td>
         <td>
-          <button onclick="banUser(${u.id})">Ban</button>
-          <button onclick="approveUser(${u.id})">Approve</button>
+          ${u.banned 
+            ? `<button onclick="approveUser(${u.id})">Approve</button> `
+            : `<button onclick="banUser(${u.id})">Ban</button>`
+          }
         </td>
       </tr>
     `;
@@ -32,14 +35,14 @@ async function loadRecipes() {
     headers: { "Authorization": `Bearer ${token}` }
   });
   const recipes = await res.json();
-
+console.log(recipes)
   const tbody = document.getElementById("recipe-table");
   tbody.innerHTML = "";
   recipes.forEach(r => {
     tbody.innerHTML += `
       <tr>
         <td>${r.title}</td>
-        <td>${r.User.username}</td>
+        <td>${r.User?.name || "Unknown"}</td>
         <td><button onclick="deleteRecipe(${r.id})">Delete</button></td>
       </tr>
     `;
@@ -65,7 +68,7 @@ async function approveUser(id) {
 async function deleteRecipe(id) {
   await fetch(`/admin/recipe/${id}`, {
     method: "DELETE",
-    headers: { "Authorization": Bearer `${token}` }
+    headers: { "Authorization": `Bearer ${token}` }
   });
   loadRecipes();
 }
@@ -75,5 +78,6 @@ document.getElementById("logoutBtn").addEventListener("click", () => {
   window.location.href = "../login/login.html";
 });
 
+// Load data
 loadUsers();
 loadRecipes();

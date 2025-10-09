@@ -86,7 +86,7 @@ app.use('/review',reviewRoutes);
 app.use('/follow',followRoutes)
 app.use("/profile", profileRoutes);
 app.use('/feed',feedRoutes);
-app.use('/admin',adminRoutes)
+app.use('/admin',adminRoutes);
 sequelize.sync()
   .then(() => {
     app.listen(process.env.PORT || 3000)
