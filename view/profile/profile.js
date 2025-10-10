@@ -51,3 +51,46 @@ document.getElementById("logoutBtn").addEventListener("click", () => {
 });
 
 loadProfile();
+//edit profile
+const editprofile = document.getElementById('editProfileBtn');
+const editModal = document.getElementById('editModal');
+const closeModalBtn = document.getElementById('closeModalBtn');
+const saveProfileBtn = document.getElementById('saveProfileBtn');
+
+editprofile.addEventListener('click', () => {
+  // Pre-fill existing values
+  document.getElementById('edit-name').value = document.getElementById('profile-username').innerText;
+  document.getElementById('edit-email').value = document.getElementById('profile-email').innerText;
+  editModal.classList.remove('hidden');
+});
+
+closeModalBtn.addEventListener('click', () => {
+  editModal.classList.add('hidden');
+});
+
+// Save Updated Profile
+saveProfileBtn.addEventListener('click', async () => {
+  const name = document.getElementById('edit-name').value;
+  const email = document.getElementById('edit-email').value;
+  const number = document.getElementById('edit-number').value;
+
+  const res = await fetch('/profile/update', {
+    method: 'PUT',
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
+    },
+    body: JSON.stringify({ name, email, number })
+  });
+
+  const data = await res.json();
+  if (res.ok) {
+    alert("Profile Updated Successfully ✅");
+    // Update UI without reload
+    document.getElementById('profile-username').innerText = name;
+    document.getElementById('profile-email').innerText = email;
+    editModal.classList.add('hidden');
+  } else {
+    alert(data.message || "Something went wrong!");
+  }
+});

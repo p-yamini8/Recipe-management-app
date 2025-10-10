@@ -21,13 +21,13 @@
   </div>
 
   <div id="profile-container">
-    <!-- User Info -->
+    <!-- User Info  -->
     <section class="card user-info">
       <h3>Welcome, <span id="profile-username">User</span> 👋</h3>
       <p><strong>Email:</strong> <span id="profile-email"></span></p>
       <p><strong>Joined:</strong> <span id="profile-joined"></span></p>
       <button id="editProfileBtn">✏ Edit Profile</button>
-    </section>
+    </section> 
 
 
 
@@ -56,6 +56,17 @@
       <ul id="followers-list"></ul>
     </section>
   </div>
+  <!-- Edit Profile Modal -->
+<div id="editModal" class="modal hidden">
+  <div class="modal-content">
+    <h3>Edit Profile</h3>
+    <input type="text" id="edit-name" placeholder="Enter Name">
+    <input type="email" id="edit-email" placeholder="Enter Email">
+    <input type="text" id="edit-number" placeholder="Enter Number">
+    <button id="saveProfileBtn">💾 Save</button>
+    <button id="closeModalBtn">❌ Cancel</button>
+  </div>
+</div>
 
   <!-- JS -->
   <script src="profile.js"></script>
