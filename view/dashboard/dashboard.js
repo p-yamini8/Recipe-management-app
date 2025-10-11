@@ -88,6 +88,22 @@ async function loadRecipes(filters = {}) {
     // ✅ Add Recipe
     document.getElementById("recipeForm").addEventListener("submit", async (e) => {
       e.preventDefault();
+      const fileInput = document.getElementById("imageUrl");
+  const file = fileInput.files?.[0];
+
+  if (!file) {
+    alert("Please select an image file.");
+    return;
+  }
+
+  let imageUrl;
+ try {
+  imageUrl = await uploadImageToS3(file);
+} catch (err) {
+  console.error("Image upload failed:", err);
+  alert("Image upload failed: " + err.message);
+}
+
       const data = {
         title: document.getElementById("title").value,
         ingredients: document.getElementById("ingredients").value,
@@ -96,8 +112,9 @@ async function loadRecipes(filters = {}) {
         servings: document.getElementById("servings").value,
         category: document.getElementById("category").value,
         difficulty: document.getElementById("difficulty").value,
-        imageUrl: document.getElementById("imageUrl").value,
+        imageUrl: imageUrl
       };
+
 
       const res = await fetch("/recipes", {
         method: "POST",
@@ -106,6 +123,7 @@ async function loadRecipes(filters = {}) {
       });
 
       if (res.ok) {
+       
         alert("Recipe added!");
         document.getElementById("recipeForm").reset();
         loadRecipes();
@@ -253,3 +271,48 @@ document.getElementById("clearSearch").addEventListener("click", function () {
   document.getElementById("searchForm").reset();
   loadRecipes(); // Reload all
 });
+
+
+// upload image to AWS
+// async function uploadImageToS3(file) {
+//   const res = await fetch(`/upload/get-upload-url?fileType=${file.type}`);
+//   const { uploadURL, imageUrl } = await res.json();
+// console.log(uploadURL,imageUrl)
+//   const upload = await fetch(uploadURL, {
+//     method: "PUT",
+//     body: file,
+//     headers: { "Content-Type": file.type } // MUST MATCH backend
+//   });
+
+//   if (!upload.ok) throw new Error('Upload failed');
+//   return imageUrl; // ✅ Final public link
+// }
+
+async function uploadImageToS3(file) {
+  try {
+    // 1. Get signed URL from backend
+    const res = await fetch(`/upload/get-upload-url?fileType=${file.type}`);
+    if (!res.ok) throw new Error("Failed to get signed URL");
+
+    const { uploadURL, imageUrl } = await res.json();
+
+    // 2. Upload file to S3
+    const uploadRes = await fetch(uploadURL, {
+      method: "PUT",
+      body: file,
+      headers: {
+        "Content-Type": file.type // MUST match backend ContentType
+        // ✅ Do NOT add x-amz-acl unless your signed URL includes it
+      }
+    });
+
+    if (!uploadRes.ok) throw new Error("S3 upload failed: " + uploadRes.status);
+
+    // 3. Return final public URL
+    return imageUrl;
+
+  } catch (err) {
+    console.error("Upload Error:", err);
+    throw err; // so your try/catch in submit will catch it
+  }
+}

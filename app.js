@@ -35,7 +35,7 @@ const profileRoutes = require("./routes/profile");
 const feedRoutes = require("./routes/feed");
 const followRoutes=require('./routes/follow')
 const adminRoutes = require("./routes/admin");
-
+const uploadRoutes=require('./routes/upload')
 
 //middlewares
 app.use(morgan('combined', { stream: accessLogStream }))
@@ -87,6 +87,7 @@ app.use('/follow',followRoutes)
 app.use("/profile", profileRoutes);
 app.use('/feed',feedRoutes);
 app.use('/admin',adminRoutes);
+app.use('/upload',uploadRoutes);
 sequelize.sync()
   .then(() => {
     app.listen(process.env.PORT || 3000)

@@ -30,15 +30,15 @@
     <section class="card">
       <h4>Add a Recipe</h4>
       <form id="recipeForm">
-        <input type="text" id="title" placeholder="Recipe Title" required>
-        <textarea id="ingredients" placeholder="Ingredients" required></textarea>
-        <textarea id="instructions" placeholder="Instructions" required></textarea>
+        <input type="text" id="title" placeholder="Recipe Title" >
+        <textarea id="ingredients" placeholder="Ingredients" ></textarea>
+        <textarea id="instructions" placeholder="Instructions" ></textarea>
         <input type="number" id="cookingTime" placeholder="Cooking Time (min)">
         <input type="number" id="servings" placeholder="Servings">
         <input type="text" id="category" placeholder="Category (e.g. Dessert)">
         <input type="text" id="difficulty" placeholder="Difficulty (Easy/Medium/Hard)">
-        <input type="text" id="imageUrl" placeholder="Image URL">
-        <button type="submit">➕ Add Recipe</button>
+        <input type="file" id="imageUrl"  accept="image/*"placeholder="Image URL">
+        <button type="submit" >➕ Add Recipe</button>
       </form>
     </section>
 <!-- Search & Filters -->
