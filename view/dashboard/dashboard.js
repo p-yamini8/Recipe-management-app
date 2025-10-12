@@ -19,6 +19,8 @@ window.location.href='../admin/admin.html'
   )
     }
 
+   
+
     document.getElementById("logoutBtn").addEventListener("click", () => {
       localStorage.removeItem("token");
       localStorage.removeItem("username");
@@ -44,7 +46,7 @@ async function loadRecipes(filters = {}) {
   const recipes = await res.json();
   const container = document.getElementById("recipes");
   container.innerHTML = "";
-
+console.log('recipes',recipes)
   if (Array.isArray(recipes)) {
     recipes.forEach(r => {
       const div = document.createElement("div");
@@ -56,7 +58,8 @@ async function loadRecipes(filters = {}) {
         <p><b>Instructions:</b> ${r.instructions}</p>
         <p><b>Time:</b> ${r.cookingTime || "-"} mins | <b>Servings:</b> ${r.servings || "-"}</p>
         <p><b>Category:</b> ${r.category || "-"} | <b>Difficulty:</b> ${r.difficulty || "-"}</p>
-        <img src="${r.imageUrl || "https://via.placeholder.com/150"}" width="200"/><br>
+        <img src="${r.imageUrl}" alt="Recipe Image" style="max-width: 100%; height: auto;" />
+
         <button onclick="addFavorite(${r.id})">⭐ Favorite</button>
         <button onclick="editRecipe(${r.id})">✏ Edit</button>
         <button onclick="deleteRecipe(${r.id})">🗑 Delete</button>
@@ -272,21 +275,6 @@ document.getElementById("clearSearch").addEventListener("click", function () {
   loadRecipes(); // Reload all
 });
 
-
-// upload image to AWS
-// async function uploadImageToS3(file) {
-//   const res = await fetch(`/upload/get-upload-url?fileType=${file.type}`);
-//   const { uploadURL, imageUrl } = await res.json();
-// console.log(uploadURL,imageUrl)
-//   const upload = await fetch(uploadURL, {
-//     method: "PUT",
-//     body: file,
-//     headers: { "Content-Type": file.type } // MUST MATCH backend
-//   });
-
-//   if (!upload.ok) throw new Error('Upload failed');
-//   return imageUrl; // ✅ Final public link
-// }
 
 async function uploadImageToS3(file) {
   try {
