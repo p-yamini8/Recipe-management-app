@@ -1,30 +1,3 @@
-// const Favorite = require("../models/favorite");
-// const Recipe = require("../models/recipe");
-
-// exports.addFavorite = async (req, res) => {
-//   try {
-   
-//     const { recipeId } = req.body;
-//     console.log('recipe id',recipeId)
-//     const fav = await Favorite.create({ UserId: req.user.id, RecipeId: recipeId });
-//     res.status(201).json(fav);
-//   } catch (err) {
-//     res.status(500).json({ message: "Error adding favorite", error: err.message });
-//   }
-// };
-
-// exports.getFavorites = async (req, res) => {
-//   try {
-//     const favorites = await Favorite.findAll({
-//       where: { UserId: req.user.id },
-//       include: [Recipe]
-//     });
-//     res.json(favorites);
-// console.log(favorites)
-//   } catch (err) {
-//     res.status(500).json({ message: "Error fetching favorites", error: err.message });
-//   }
-// };
 
 
 const Favorite = require("../models/favorite");

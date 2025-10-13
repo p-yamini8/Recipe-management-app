@@ -1,4 +1,5 @@
 // controllers/recipes.controller.js
+const Favorite = require("../models/favorite");
 const Recipe = require("../models/recipe");
 const User = require("../models/user");
 const { Op } = require("sequelize");
@@ -113,8 +114,9 @@ exports.deleteRecipe = async (req, res) => {
     if (!recipe) {
       return res.status(404).json({ message: "Recipe not found" });
     }
-
+await Favorite.destroy({where:{RecipeId:recipe.id}})
     await recipe.destroy();
+    recipe.save();
     res.json({ message: "Recipe deleted successfully" });
   } catch (err) {
     console.error("Delete recipe error:", err);

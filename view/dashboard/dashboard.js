@@ -3,7 +3,7 @@
     const username = localStorage.getItem("username");
 const isAdmin=localStorage.getItem('isAdmin');
 console.log('isAdmin',isAdmin)
-alert(isAdmin)
+
     if (!token) {
       window.location.href = "../login/login.html";
     } else {
@@ -198,12 +198,19 @@ if(res.ok)
     // 🗑 Delete Recipe
     async function deleteRecipe(id) {
       if (!confirm("Delete this recipe?")) return;
-      await fetch(`/recipes/${id}`, {
+      const res=await fetch(`/recipes/${id}`, {
         method: "DELETE",
         headers: {"Authorization":`Bearer ${token}`}
       });
-      alert("Recipe deleted!");
+      const result=await res.json();
+      if(res.ok)
+      {
+  alert("Recipe deleted!");
       loadRecipes();
+      }
+    else{
+      alert('error:'+result.message)
+    }
     }
 
     // 💬 Add Review
@@ -290,7 +297,7 @@ async function uploadImageToS3(file) {
       body: file,
       headers: {
         "Content-Type": file.type // MUST match backend ContentType
-        // ✅ Do NOT add x-amz-acl unless your signed URL includes it
+        
       }
     });
 
