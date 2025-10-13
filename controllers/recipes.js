@@ -3,6 +3,7 @@ const Favorite = require("../models/favorite");
 const Recipe = require("../models/recipe");
 const User = require("../models/user");
 const { Op } = require("sequelize");
+const sequelize = require("../util/database");
 
 // ✅ Create Recipe
 exports.createRecipe = async (req, res) => {
@@ -109,16 +110,19 @@ exports.updateRecipe = async (req, res) => {
 // ✅ Delete Recipe (only owner can delete)
 exports.deleteRecipe = async (req, res) => {
   try {
-    const recipe = await Recipe.findByPk(req.params.id);
+    const t=await sequelize.transaction();
+    const recipe = await Recipe.findByPk(req.params.id,{transaction:t});
 
     if (!recipe) {
+      await t.rollback();
       return res.status(404).json({ message: "Recipe not found" });
     }
-await Favorite.destroy({where:{RecipeId:recipe.id}})
-    await recipe.destroy();
-    recipe.save();
+await Favorite.destroy({where:{RecipeId:recipe.id},transaction:t})
+    await recipe.destroy({transaction:t});
+    await t.commit();
     res.json({ message: "Recipe deleted successfully" });
   } catch (err) {
+    await t.rollback();
     console.error("Delete recipe error:", err);
     res.status(500).json({ message: "Server error" });
   }

@@ -1,25 +1,31 @@
 const Follow = require("../models/follow");
 const User = require("../models/user");
+const sequelize = require("../util/database");
 
 // ✅ Follow a user
 exports.followUser = async (req, res) => {
   try {
+   const t = await sequelize.transaction();  
     const followerId = req.user.id;   // logged in user
     const { userId } = req.params;    // person I want to follow
 
     if (parseInt(userId) === followerId) {
+      await t.rollback();
       return res.status(400).json({ message: "You cannot follow yourself" });
     }
 
     // Check if already following
-    const exists = await Follow.findOne({ where: { followerId, followingId: userId } });
+    const exists = await Follow.findOne({ where: { followerId, followingId: userId },transaction:t});
     if (exists) {
+      await t.rollback();
       return res.status(400).json({ message: "Already following this user" });
     }
 
-    await Follow.create({ followerId, followingId: userId });
+    await Follow.create({ followerId, followingId: userId },{transaction:t});
+    await t.commit();
     res.json({ message: "Followed successfully" });
   } catch (err) {
+    await t.rollback();
     console.error("Follow error:", err);
     res.status(500).json({ message: "Failed to follow user" });
   }

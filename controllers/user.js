@@ -9,21 +9,24 @@ require('dotenv').config();
 // ✅ Signup — first registered user becomes admin
 exports.signup = async (req, res) => {
   try {
+    const t=await sequelize.transaction();
     const { name, email, number, password } = req.body;
 
     if (!name || !email || !password || !number) {
+      await t.rollback();
       return res.status(400).json({ message: 'Enter all details' });
     }
 
-    const existingUser = await User.findOne({ where: { email } });
+    const existingUser = await User.findOne({ where: { email },transaction:t });
     if (existingUser) {
+      await t.rollback();
       return res.status(400).json({ message: 'User already exists' });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // ✅ Check if this is the first user in the system
-    const userCount = await User.count();
+    const userCount = await User.count({transaction:t});
     const isAdmin = userCount === 0; // first user → admin
 
     const user = await User.create({
@@ -32,14 +35,15 @@ exports.signup = async (req, res) => {
       number,
       password: hashedPassword,
       isAdmin,
-    });
-
+    },{transaction:t});
+await t.commit();
     return res.status(201).json({
       message: isAdmin
         ? 'User signup success — You are the first user and have been made admin'
         : 'User signup success',
     });
   } catch (err) {
+    await t.rollback();
     console.log('Signup error:', err);
     return res.status(500).json({ message: 'Error during signup' });
   }
