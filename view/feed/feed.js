@@ -79,7 +79,7 @@ async function toggleFollow(userId, isFollowing) {
 
     const res = await fetch(url, {
       method,
-      headers: { "Authorization": `Bearer ${token}` }
+      headers: { "Authorization": `Bearer ${token}`,'Accept':'application/json' }
     });
 
     const data = await res.json();
@@ -99,7 +99,7 @@ loadUsers()
 container.addEventListener("click", async (e) => {
   if (e.target.classList.contains("follow-btn")) {
     const targetId = e.target.getAttribute("data-user-id");
-    const isFollowing = e.target.textContent === "Unfollow";
+    const isFollowing = e.target.textContent.trim() === "Unfollow";
     await toggleFollow(targetId, isFollowing);
    
   }

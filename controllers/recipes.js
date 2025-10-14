@@ -117,6 +117,10 @@ exports.deleteRecipe = async (req, res) => {
       await t.rollback();
       return res.status(404).json({ message: "Recipe not found" });
     }
+    if(recipe.userId!==req.user.id&&!req.user.isAdmin)
+    {await t.rollback();
+      return res.status(403).json({message:'Not allowed to delete others recipes'})
+    }
 await Favorite.destroy({where:{RecipeId:recipe.id},transaction:t})
     await recipe.destroy({transaction:t});
     await t.commit();
