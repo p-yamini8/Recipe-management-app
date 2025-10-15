@@ -43,3 +43,20 @@ exports.getFavorites = async (req, res) => {
     res.status(500).json({ message: "Error fetching favorites", error: err.message });
   }
 };
+// ❌ Remove Favorite
+exports.removeFavorite = async (req, res) => {
+  try {
+    const favoriteId = req.params.id;
+    const userId = req.user.id;
+
+    const favorite = await Favorite.findOne({ where: { id: favoriteId, userId } });
+    if (!favorite) {
+      return res.status(404).json({ message: "Favorite not found or unauthorized" });
+    }
+
+    await favorite.destroy();
+    res.json({ message: "Removed from favorites" });
+  } catch (err) {
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+};

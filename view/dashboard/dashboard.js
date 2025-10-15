@@ -156,6 +156,21 @@ console.log('recipes',recipes)
   }
      
     }
+    // 📌 Remove Favorite
+async function removeFavorite(favoriteId) {
+  const res = await fetch(`/favorite/${favoriteId}`, {
+    method: "DELETE",
+    headers: { "Authorization": `Bearer ${token}` }
+  });
+
+  const result = await res.json();
+  if (res.ok) {
+    alert("Removed from favorites!");
+    loadFavorites();
+  } else {
+    alert("Error: " + result.message);
+  }
+}
 
     // 📌 Load Favorites
     async function loadFavorites() {
@@ -171,7 +186,9 @@ console.log(favorites)
       favorites.forEach(f => {
         const div = document.createElement("div");
         div.className = "recipe";
-        div.innerHTML = `<h3>${f.Recipe.title}</h3><p>${f.Recipe.ingredients}</p>`;
+        div.innerHTML = `<h3>${f.Recipe.title}</h3><p>${f.Recipe.ingredients}</p>
+      <button onclick="removeFavorite(${f.id})">❌ Remove</button>
+    `;
         container.appendChild(div);
       });
     }

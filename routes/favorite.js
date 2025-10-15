@@ -8,7 +8,7 @@ const authMiddleware = require("../middleware/auth");
 router.get("/", authMiddleware.authenticate,favoriteController.getFavorites);
 
 
-
+router.delete('/:id',authMiddleware.authenticate,favoriteController.removeFavorite);
 // // Protected
 router.post("/", authMiddleware.authenticate, favoriteController.addFavorite);
 
